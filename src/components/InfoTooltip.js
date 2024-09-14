@@ -20,8 +20,8 @@ function InfoTooltip({ isRegistred, onClose }) {
         </span>
         <h2 className="modal__text">
           {isRegistred
-            ? "Vitória! Você conseguiu"
-            : "Ops, algo saiu deu errado!Por favor, tente novamente"}
+            ? "Vitória! Você conseguiu se registrar"
+            : "Ops, algo saiu deu errado! Por favor, tente novamente"}
         </h2>
       </form>
     </div>

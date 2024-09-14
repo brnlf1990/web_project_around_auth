@@ -1,18 +1,46 @@
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate  } from "react-router-dom";
 import "../blocks/Pages.css";
 import Header from "../components/Header";
 import MainPage from "../components/MainPage";
 import Footer from "../components/Footer";
 import Register from "../components/Register";
 import Login from "./Login";
-import InfoTooltip from "../components/InfoTooltip";
 import ProtectedRoute from "../components/ProtectedRoute";
+import * as auth from "../utils/auth";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() =>{
+    handleCheckToken()
+  })
+  
+  const history = useNavigate ()
+function handleCheckToken(){
+  const jwt = localStorage.getItem("jwt")
+
+  
+    auth.checkToken(jwt).then((jwtToken) => {
+      if (jwtToken){
+       handleLoggedIn()
+       localStorage.setItem('jwt', jwtToken)
+       history.push('/main')
+    }})
+    .catch((err) => {
+      console.log(err)
+    })
+  
+}
+
+  const handleLoggedIn = () => {
+    setLoggedIn(true)
+  }
+  const handleLogOut = () => {
+    setLoggedIn(false)
+  }
+  
   return (
     <div className="App">
-      <Header />
+      <Header handleLogOut={handleLogOut} />
 
       <Routes>
         <Route path="/signin" element={<Login />}></Route>
@@ -21,7 +49,7 @@ function App() {
         <Route
           path="/main"
           element={
-            <ProtectedRoute loggedIn={loggedIn}>
+            <ProtectedRoute loggedIn={loggedIn} >
               <MainPage />
             </ProtectedRoute>
           }

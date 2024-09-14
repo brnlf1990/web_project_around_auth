@@ -14,7 +14,6 @@ import AddPlacePopup from "./AddPlacePopup";
 import DeleteConfirmation from "./DeleteConfirmationPopup";
 
 function MainPage() {
-  console.log("impresso");
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isDeletePopup, setDeletePopup] = useState(false);

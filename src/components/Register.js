@@ -1,15 +1,19 @@
 import "../blocks/Register.css";
-import { Link, Navigate, withRouter } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import React from "react";
 import * as auth from "../utils/auth";
+import InfoTooltip from "../components/InfoTooltip";
+
 
 function Register() {
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false); 
+  const [isRegistred, setIsRegistred] = React.useState(false);
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
   });
-
-  const [message, setMessage] = React.useState();
+const navigate = useNavigate ()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,14 +21,28 @@ function Register() {
   };
 
   const handleSubmit = (e) => {
-    console.log(formData);
     e.preventDefault();
-    auth.register(formData).then((res) => {
-      if (!res.ok) {
-        console.log(res);
+    auth
+      .register(formData).then((response) =>{
+        if (response){
+          setIsModalOpen(true);
+          setIsRegistred(true)
+          navigate('/signin')
+        }else{
+          setIsModalOpen(false);
+          setIsRegistred(false)
+        }
+      })
+      .catch((err) =>{
+        console.log(`${err}`)
+        setIsRegistred(false)
+        setIsModalOpen(true);
       }
-      console.log(res);
-    });
+      );
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); 
   };
   return (
     <div className="register">
@@ -51,12 +69,15 @@ function Register() {
           <button onClick={handleSubmit} className="register__button">
             Inscreva-se
           </button>
-          {message && <p className="register__error">{message}</p>}
           <p className="register__login">
             Já é um membro? <Link to="/signin">Faça o login aqui!</Link>
           </p>
         </form>
       </div>
+
+      {isModalOpen && (
+        <InfoTooltip isRegistred={isRegistred} onClose={handleCloseModal} />
+      )}
     </div>
   );
 }

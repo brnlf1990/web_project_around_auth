@@ -8,7 +8,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
   React.useEffect(() => {
     if (currentUser && avatarRef.current) {
-      avatarRef.current.value = currentUser.avatar || ""; // Garante que não seja undefined
+      avatarRef.current.value = currentUser.avatar || ""; 
     }
   }, [currentUser]);
 

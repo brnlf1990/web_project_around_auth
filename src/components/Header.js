@@ -1,19 +1,36 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation,useNavigate  } from "react-router-dom";
 import "../blocks/Header.css";
 import aroundImage from "../images/header_title.jpg";
 
-function Header() {
+function Header({handleLogOut, formData}) {
   const location = useLocation();
 
+  const navigate = useNavigate ()
+
+  function signOut(){
+    handleLogOut();
+    localStorage.removeItem('jwt')
+    navigate('/signin')
+  }
   const getButtonText = () => {
     switch (location.pathname) {
       case "/signup":
-        return "Faça o Login";
+        return (
+        <Link to="/signin"> Faça o Login
+        </Link>
+        )
       case "/signin":
-        return "Entrar";
+        return(
+          <Link to="/signup"> Entrar
+          </Link>
+          ) 
       case "/main":
-        return "email Sair";
+        return  (
+          <span onClick={signOut}>
+            Sair
+          </span>
+        );
     }
   };
 
