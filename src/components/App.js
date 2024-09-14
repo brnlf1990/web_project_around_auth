@@ -22,7 +22,6 @@ function handleCheckToken(){
     auth.checkToken(jwt).then((jwtToken) => {
       if (jwtToken){
        handleLoggedIn()
-       localStorage.setItem('jwt', jwtToken)
        history.push('/main')
     }})
     .catch((err) => {
