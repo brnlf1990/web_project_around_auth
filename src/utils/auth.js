@@ -1,6 +1,6 @@
 export const BASE_URL = "https://register.nomoreparties.co";
 
-export const register = ({ email, password }) => {
+export const register = ({ email, password }) => {// external test api - tripleten api is off
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -42,7 +42,7 @@ export const autorization = ({ email, password }) => {
       });
   };
 
-  export const checkToken = (token) => {
+  export const checkToken = (token) => {// external test api - tripleten api is off
     return fetch(`${BASE_URL}/signin`, {
       method: "GET",
       headers: {

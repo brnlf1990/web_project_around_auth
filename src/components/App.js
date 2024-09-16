@@ -24,8 +24,10 @@ function handleCheckToken(){
        handleLoggedIn()
        history.push('/main')
     }})
-    .catch((err) => {
-      console.log(err)
+    .catch((err) => {// external test api - tripleten api is off
+      if (err.message.includes('Failed to fetch' || err.message.includes('CORS'))){
+        console.log('External test api - tripleten api is off')
+      }
     })
   
 }
