@@ -28,7 +28,7 @@ function Login({handleLoggedIn}) {
        
         if (data.token){
           handleLoggedIn()
-          localStorage.setItem("jwt", data.token)
+          localStorage.setItem("token", data.token)
           navigate('/main')
         }
       })

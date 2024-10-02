@@ -41,7 +41,7 @@ export class Api {
         return Promise.reject(`Error: ${res.status}`);
       });
     } else {
-      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      return fetch(`${this._baseUrl}/cards/dislike/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
       }).then((res) => {
@@ -65,8 +65,8 @@ export class Api {
     });
   }
 
-  patchUserInfo(userData) {
-    return fetch(`${this._baseUrl}/users/me`, {
+  patchUserInfo(userId, userData) {
+    return fetch(`${this._baseUrl}/users/${userId}`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(userData),
@@ -78,8 +78,8 @@ export class Api {
     });
   }
 
-  userAvatar({ avatar }) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+  userAvatar(userId, { avatar }) {
+    return fetch(`${this._baseUrl}/users/${userId}/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -113,9 +113,9 @@ export class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/web-ptbr-cohort-10",
+  baseUrl: "http://localhost:3001",
   headers: {
-    authorization: "ddda171a-2bb7-46e7-9726-3c7c72f035dd",
+    "Authorization" : `Bearer ${localStorage.getItem('token')}`,
     "Content-Type": "application/json",
   },
 });

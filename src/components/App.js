@@ -16,7 +16,7 @@ function App() {
   
   const history = useNavigate ()
 function handleCheckToken(){
-  const jwt = localStorage.getItem("jwt")
+  const jwt = localStorage.getItem("token")
 
   
     auth.checkToken(jwt).then((jwtToken) => {
@@ -24,9 +24,8 @@ function handleCheckToken(){
        handleLoggedIn()
        history.push('/main')
     }})
-    .catch((err) => {// external test api - tripleten api is off
+    .catch((err) => {
       if (err.message.includes('Failed to fetch' || err.message.includes('CORS'))){
-        console.log('External test api - tripleten api is off')
       }
     })
   

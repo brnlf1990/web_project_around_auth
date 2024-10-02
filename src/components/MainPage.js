@@ -113,7 +113,9 @@ function MainPage() {
       });
   };
 
-  const handleUpdateUser = ({ name, about }) => {
+  const handleUpdateUser = ( { name, about }) => {
+console.log(fetchCurrentUser._id);
+
     api
       .patchUserInfo({ name, about })
       .then((updatedUser) => {

@@ -13,7 +13,7 @@ export const CardRenderProvider = ({ children }) => {
         setInitialCards(data);
       })
       .catch((err) => {
-        console.error(err);
+       alert(err)
       });
   }, []);
   const memoHookCard = React.useMemo(

@@ -1,6 +1,6 @@
-export const BASE_URL = "https://register.nomoreparties.co";
+export const BASE_URL = "http://localhost:3001";
 
-export const register = ({ email, password }) => {// external test api - tripleten api is off
+export const register = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -35,20 +35,20 @@ export const autorization = ({ email, password }) => {
           return response.json();
         }
       })
-      .then((res) => {
-        if (res) {
-          console.log(res);
+      .then((data) => {
+        if (data) {
+          localStorage.localStorage('token', data.token)
         }
       });
   };
 
-  export const checkToken = (token) => {// external test api - tripleten api is off
+  export const checkToken = (token) => {
     return fetch(`${BASE_URL}/signin`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization" : `Bearer ${token}`,
+        "Authorization" : `Bearer ${localStorage.getItem(token)}`,
       },
     })
       .then((response) => {
